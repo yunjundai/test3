@@ -3,175 +3,212 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>防詐小尖兵：數位大冒險 - 進階版</title>
+    <title>防詐小尖兵：數位大冒險 - 單頁精簡版</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap');
+        
         body {
             font-family: 'Noto+Sans+TC', sans-serif;
-            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-            min-height: 100vh;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0;
-            padding: 10px;
+            overflow: hidden; /* 防止全頁捲動 */
         }
+
+        .game-wrapper {
+            width: 100%;
+            height: 100%;
+            max-width: 1400px;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         .glass {
             background: rgba(255, 255, 255, 0.98);
             border-radius: 1.5rem;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-height: 95vh; /* 確保不超出可視區域 */
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto; /* 若內容過多僅在容器內捲動 */
         }
+
         .btn-option {
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid #e2e8f0;
         }
+
         .btn-option:hover {
-            transform: scale(1.01);
+            transform: scale(1.02);
             background-color: #f8fafc;
-            border-color: #6366f1;
+            border-color: #4f46e5;
         }
+
         .shake {
             animation: shake 0.4s ease-in-out;
         }
+
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-8px); }
-            75% { transform: translateX(8px); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
         }
-        .progress-glow {
-            box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+
+        /* 自定義捲動條 */
+        .glass::-webkit-scrollbar {
+            width: 6px;
+        }
+        .glass::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
         }
     </style>
 </head>
 <body>
 
-    <div id="game-container" class="glass w-full max-w-2xl p-6 md:p-8 text-slate-800">
-        <!-- Start Screen -->
-        <div id="start-screen" class="text-center">
-            <div class="mb-6 relative">
-                <div class="absolute inset-0 bg-indigo-200 blur-2xl rounded-full opacity-30 animate-pulse"></div>
-                <svg class="w-24 h-24 mx-auto text-indigo-600 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                </svg>
+    <div class="game-wrapper">
+        <div id="game-container" class="glass p-6 md:p-8 text-slate-800">
+            
+            <!-- Start Screen -->
+            <div id="start-screen" class="text-center py-4">
+                <div class="text-8xl mb-4">🛡️</div>
+                <h1 class="text-3xl md:text-5xl font-black text-slate-900 mb-4 tracking-tight">防詐小尖兵：數位大冒險</h1>
+                <div class="inline-block px-4 py-1 bg-indigo-600 text-white rounded-full text-lg font-bold mb-6">進階挑戰模式</div>
+                <p class="text-lg md:text-xl text-slate-600 mb-8 max-w-2xl mx-auto">
+                    詐騙者會偽裝成朋友、官方或網紅。你有辦法在不捲動頁面的情況下，用最快的反應識破他們嗎？
+                </p>
+                <button onclick="startGame()" class="bg-indigo-600 text-white px-12 py-4 rounded-xl text-xl font-bold hover:bg-indigo-700 shadow-xl transition-all">
+                    開始挑戰
+                </button>
             </div>
-            <h1 class="text-3xl font-bold text-slate-900 mb-4">防詐小尖兵：數位大冒險</h1>
-            <div class="inline-block px-4 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm font-bold mb-6">進階挑戰版</div>
-            <p class="text-lg text-slate-600 mb-8 leading-relaxed">
-                恭喜你進入數位冒險！現在的詐騙者非常狡猾，他們會假裝成你的朋友、官方人員或是知名網紅。<br>
-                你有辦法識破那些「看起來很真實」的陷阱嗎？
-            </p>
-            <button onclick="startGame()" class="w-full sm:w-auto bg-indigo-600 text-white px-12 py-4 rounded-xl text-xl font-bold hover:bg-indigo-700 shadow-lg shadow-indigo-200 transition-all">進入冒險</button>
-        </div>
 
-        <!-- Game Screen -->
-        <div id="game-screen" class="hidden">
-            <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
-                <div class="bg-slate-100 px-4 py-2 rounded-lg">
-                    <span class="text-xs font-bold text-slate-500 block">挑戰關卡</span>
-                    <span id="level-indicator" class="text-lg font-bold text-indigo-600">1 / 5</span>
+            <!-- Game Screen -->
+            <div id="game-screen" class="hidden h-full flex flex-col">
+                <!-- Header Stats -->
+                <div class="flex justify-between items-center mb-4 bg-slate-50 p-3 rounded-xl border border-slate-100">
+                    <div class="flex items-center space-x-4">
+                        <span class="text-xs font-bold text-slate-400 uppercase">關卡</span>
+                        <span id="level-indicator" class="text-2xl font-black text-indigo-600 leading-none">1 / 5</span>
+                    </div>
+                    <div class="flex items-center space-x-3 flex-grow max-w-xs md:max-w-md ml-6">
+                        <span class="text-xs font-bold text-slate-400 uppercase hidden sm:inline">防禦力</span>
+                        <div class="flex-grow h-3 bg-slate-200 rounded-full overflow-hidden shadow-inner">
+                            <div id="hp-bar" class="h-full bg-gradient-to-r from-green-400 to-emerald-500 transition-all duration-700" style="width: 100%"></div>
+                        </div>
+                        <span id="hp-text" class="text-sm font-bold text-indigo-600 w-10 text-right">100%</span>
+                    </div>
                 </div>
-                <div class="flex items-center w-full sm:w-48 bg-slate-100 p-2 rounded-lg">
-                    <span class="mr-3 text-sm font-bold text-slate-600">防禦力</span>
-                    <div class="flex-grow h-3 bg-slate-200 rounded-full overflow-hidden">
-                        <div id="hp-bar" class="h-full bg-gradient-to-r from-green-400 to-indigo-500 transition-all duration-500" style="width: 100%"></div>
+
+                <!-- Main Content Area -->
+                <div class="grid md:grid-cols-5 gap-6 items-start overflow-hidden">
+                    <!-- Left: Scenario -->
+                    <div class="md:col-span-2 space-y-4">
+                        <div id="scenario-image" class="text-7xl text-center bg-indigo-50 py-6 rounded-2xl">🎮</div>
+                        <div class="bg-white p-5 rounded-2xl border-2 border-indigo-50 shadow-sm">
+                            <h2 id="scenario-title" class="text-xl font-bold mb-2 text-indigo-900">場景標題</h2>
+                            <p id="scenario-text" class="text-base md:text-lg leading-relaxed text-slate-700"></p>
+                        </div>
+                    </div>
+
+                    <!-- Right: Options -->
+                    <div id="options-container" class="md:col-span-3 space-y-2">
+                        <!-- Options injected here -->
                     </div>
                 </div>
             </div>
 
-            <div id="scenario-box" class="mb-8">
-                <div id="scenario-image" class="text-6xl mb-6 text-center filter drop-shadow-md">🎮</div>
-                <h2 id="scenario-title" class="text-xl font-bold mb-4 text-slate-900 border-b pb-2">場景載入中...</h2>
-                <div class="bg-indigo-50 p-5 rounded-2xl border-l-4 border-indigo-500 shadow-sm">
-                    <p id="scenario-text" class="text-lg leading-relaxed text-slate-700">載入中...</p>
+            <!-- Feedback Overlay (Simplified Modal) -->
+            <div id="feedback-overlay" class="hidden fixed inset-0 bg-slate-900/90 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+                <div class="bg-white rounded-3xl p-6 md:p-10 max-w-xl w-full text-center shadow-2xl">
+                    <div id="feedback-icon" class="text-7xl mb-4">✅</div>
+                    <h3 id="feedback-title" class="text-2xl md:text-3xl font-bold mb-2">正確答案！</h3>
+                    <p id="feedback-text" class="text-lg text-slate-600 mb-8"></p>
+                    <button onclick="closeFeedback()" class="w-full bg-slate-900 text-white py-4 rounded-xl text-xl font-bold hover:bg-slate-800 transition">
+                        繼續
+                    </button>
                 </div>
             </div>
 
-            <div id="options-container" class="grid gap-3">
-                <!-- Options will be injected here -->
+            <!-- Result Screen -->
+            <div id="result-screen" class="hidden text-center py-2">
+                <div id="result-icon" class="text-8xl mb-4">🏅</div>
+                <h2 id="result-title" class="text-3xl md:text-5xl font-black text-slate-900 mb-2">結算成績</h2>
+                <p id="result-text" class="text-lg md:text-xl text-slate-600 mb-6"></p>
+                
+                <div class="bg-slate-50 p-5 rounded-2xl mb-6 text-left max-w-2xl mx-auto border border-slate-200">
+                    <h4 class="text-lg font-bold text-indigo-700 mb-3">🛡️ 防護重點回顧：</h4>
+                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2 text-sm text-slate-600">
+                        <li>• 驗證碼絕不外傳</li>
+                        <li>• 好友連結先確認本人</li>
+                        <li>• 領獎訊息多查證</li>
+                        <li>• 恐嚇訊息找大人</li>
+                    </ul>
+                </div>
+                
+                <button onclick="resetGame()" class="bg-indigo-600 text-white px-12 py-4 rounded-xl text-xl font-bold hover:bg-indigo-700 shadow-xl transition-all">
+                    重新挑戰
+                </button>
             </div>
-        </div>
-
-        <!-- Feedback Overlay -->
-        <div id="feedback-overlay" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-            <div class="bg-white rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl">
-                <div id="feedback-icon" class="text-6xl mb-4">✅</div>
-                <h3 id="feedback-title" class="text-2xl font-bold mb-2">正確！</h3>
-                <p id="feedback-text" class="text-slate-600 mb-8 leading-relaxed">這是正確的應對方式。</p>
-                <button onclick="closeFeedback()" class="w-full bg-slate-900 text-white py-3 rounded-xl font-bold hover:bg-slate-800 transition">繼續挑戰</button>
-            </div>
-        </div>
-
-        <!-- Result Screen -->
-        <div id="result-screen" class="hidden text-center">
-            <div id="result-icon" class="text-8xl mb-6">🏆</div>
-            <h2 id="result-title" class="text-3xl font-bold text-slate-900 mb-4">結算成績</h2>
-            <p id="result-text" class="text-xl text-slate-600 mb-8"></p>
-            <div class="bg-slate-50 border border-slate-200 p-6 rounded-2xl mb-8 text-left">
-                <h4 class="font-bold text-indigo-600 mb-3 flex items-center">
-                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"></path></svg>
-                    小尖兵筆記：
-                </h4>
-                <ul class="text-sm space-y-3 text-slate-600">
-                    <li class="flex items-start"><span class="mr-2">🔹</span> 任何「官方」都不會在聊天室跟你要驗證碼。</li>
-                    <li class="flex items-start"><span class="mr-2">🔹</span> 好朋友傳來的連結，先打電話問他本人。</li>
-                    <li class="flex items-start"><span class="mr-2">🔹</span> 「點擊領取獎勵」通常是釣魚網站的誘餌。</li>
-                    <li class="flex items-start"><span class="mr-2">🔹</span> 被威脅要報警、停權時，先冷靜找大人協助。</li>
-                </ul>
-            </div>
-            <button onclick="resetGame()" class="bg-indigo-600 text-white px-12 py-4 rounded-xl text-xl font-bold hover:bg-indigo-700 transition shadow-lg shadow-indigo-200">重新挑戰</button>
         </div>
     </div>
 
     <script>
         const scenarios = [
             {
-                title: "官方內測邀請函？",
+                title: "官方緊急私訊？",
                 image: "👾",
-                text: "你在遊戲大廳收到一個看起來很像官方名稱（系統管理員_05）的私訊：『恭喜獲得絕版造型測試資格！為了確認你是本人，請回傳你剛才手機收到的 6 位數驗證碼，逾時將取消資格。』",
+                text: "玩家『管理員_測試員』私訊：『發現你的帳號有異常登入，請立即提供你手機剛收到的 6 位數代碼，否則我們將在 1 分鐘內永久鎖定你的帳號。』",
                 options: [
-                    { text: "這應該是官方活動，趕快把簡訊裡的數字傳給他。", correct: false, feedback: "這是最危險的陷阱！這 6 位數通常是你的帳號重設驗證碼，給了他，你的帳號就會瞬間被盜走。" },
-                    { text: "查看簡訊內容。簡訊如果寫「驗證碼請勿提供他人」，就絕對不能給。", correct: true, feedback: "沒錯！官方人員「絕對」不會在私訊中詢問你的驗證碼。那通常是盜帳號的最後一步。" },
-                    { text: "先去官網看看有沒有這個活動，並檢舉該玩家。", correct: true, feedback: "聰明！保持懷疑並查證是防詐的第一步。許多詐騙者會偽裝成官方名稱來唬人。" }
+                    { text: "這聽起來很嚴重，為了保護帳號趕快把代碼給他。", correct: false, feedback: "這是經典的盜帳號陷阱！那個代碼是修改密碼的權限。記住，官方永遠不會在私訊跟你要代碼。" },
+                    { text: "官方不會用這種方式要代碼，這絕對是假的，直接檢舉。", correct: true, feedback: "沒錯！面對「限時壓力」與「恐嚇」，冷靜識破才是高手。官方有後台系統，不需要問你的驗證碼。" },
+                    { text: "先給他前 3 碼測試看看他是不是真的管理員。", correct: false, feedback: "千萬不要給！詐騙者會用各種話術騙你給出剩下的部分，或者利用這部分資訊進一步攻擊。" }
                 ]
             },
             {
-                title: "死黨的求助投票",
+                title: "死黨的投票請求",
                 image: "👯",
-                text: "你的好朋友在 IG 傳來連結：『嘿！我正在參加才藝比賽，差 10 票就能拿冠軍，可以幫我點進去按個讚嗎？拜託拜託！』點開後出現一個 LINE 登入畫面。 ",
+                text: "好朋友小明在 IG 傳來：『幫我參加才藝比賽投票！拜託點這個連結登入 LINE 幫我按個讚！』連結點開後網址是 line-voted.xyz。",
                 options: [
-                    { text: "好朋友開口了，直接輸入 LINE 帳號密碼幫他投票。", correct: false, feedback: "這是釣魚網站！輸入後，你的 LINE 帳號就會被盜走，並開始發詐騙訊息給其他同學。" },
-                    { text: "點進去看看，但不輸入任何資料，直接退出來。", correct: false, feedback: "點擊連結本身就有風險（可能被追蹤 IP），最好的做法是不要輸入資料，並私下問朋友本人。" },
-                    { text: "傳訊息問他：『你在比賽喔？怎麼要登入？』或打給他確認。", correct: true, feedback: "正確！如果朋友帳號被盜，回訊息的人也是詐騙者。最好透過電話或見面確認。" }
+                    { text: "好朋友都拜託了，用我的帳號密碼登入幫他按讚。", correct: false, feedback: "這是釣魚網站！你的帳號密碼會被偷走。注意網址不是官方的 line.me，而是奇怪的 xyz。" },
+                    { text: "打電話或當面問小明：『你是不是被盜帳號了？』", correct: true, feedback: "正確！遇到要輸入帳密的奇怪連結，先確認朋友本人的情況是最佳自保之道。" },
+                    { text: "幫他轉傳到班級群組，讓更多人一起幫忙投票。", correct: false, feedback: "這樣會害全班的帳號都被盜！如果不確定連結安全，絕對不能隨意轉傳。" }
                 ]
             },
             {
-                title: "網紅聯名限時快閃",
+                title: "限時 1 折福利",
                 image: "📸",
-                text: "你在 TikTok 看到一個很紅的創作者廣告：『感謝粉絲，iPhone 15 限時特賣 1 折，只要 3000 元！限時 10 分鐘，賣完就沒了！』頁面上倒數計時器正快速減少。",
+                text: "你在滑影音時，看到知名網紅的限時動態：『回饋粉絲，iPhone 15 只要 800 元！只剩 5 台，點擊下方連結搶購！』頁面上有超大的倒數計時。",
                 options: [
-                    { text: "趁還沒倒數完，趕快輸入家裡的信用卡資訊下單。", correct: false, feedback: "「限時倒數」是為了讓你來不及思考！這種一頁式廣告通常會寄來廢紙或是盜刷你的卡片。" },
-                    { text: "點開賣家資訊，發現沒有公司電話與地址，決定關掉。", correct: true, feedback: "對！正規網紅開賣通常會有官方商城或知名電商連結，不會只有一個簡陋的倒數頁面。" },
-                    { text: "傳給班群問大家：『有人要一起買嗎？』", correct: false, feedback: "別把同學也拉下水！如果你發現這可能是詐騙，應該直接警告大家不要點。" }
+                    { text: "網紅應該不會騙人，趁還有名額趕快用紅包錢下單。", correct: false, feedback: "這是假網紅、假網頁！詐騙集團常盜用網紅照片做一頁式廣告，800 元絕對買不到真的 iPhone。" },
+                    { text: "檢查帳號是否有藍勾勾，並去官方商城對照價格。", correct: true, feedback: "聰明！保持理性，不要被「限時」與「低價」沖昏頭。查證來源比搶購更重要。" },
+                    { text: "直接在下方留言：『這太便宜了吧！』來引起賣家注意。", correct: false, feedback: "留言可能會讓你被詐騙者鎖定，並透過私訊進一步誘騙你。最好直接檢舉廣告。" }
                 ]
             },
             {
-                title: "包裹配送異常警告",
+                title: "包裹查收異常",
                 image: "📦",
-                text: "手機收到簡訊：『【郵局通知】您的包裹配送地址不全，請於 24 小時內點擊 bit.ly/tw-post 補全資訊並支付 15 元手續費，否則將退回寄件地。』",
+                text: "簡訊：『您的包裹配送地址不全，請點 bit.ly/tw-shipp 付費 15 元手續費以重新投遞。』你剛好最近有在網路上買東西。",
                 options: [
-                    { text: "才 15 元而已，點進去用小額支付付掉，以免包裹不見。", correct: false, feedback: "詐騙者不在乎那 15 元，他在乎的是你在假網站上輸入的刷卡資料或身分證字號！" },
-                    { text: "我不記得有買東西，應該是寄錯了，不理它。", correct: true, feedback: "正確。如果你真的有買東西，請去原購物網站查進度，不要點簡訊裡的縮網址。" },
-                    { text: "打電話去郵局官方客服詢問這個簡訊是真的嗎？", correct: true, feedback: "非常保險的做法！政府機關不會使用 bit.ly 這種縮網址來要求付費。" }
+                    { text: "才 15 元而已，刷卡付掉比較省事，以免東西被退貨。", correct: false, feedback: "那是為了偷走你的信用卡完整資訊！15 元是餌，真正的目標是你的信用卡餘額。" },
+                    { text: "我不理它，如果是真的，物流公司會再打電話給我。", correct: true, feedback: "正確！公家機關或大快遞公司不會使用縮網址 (bit.ly) 要求民眾支付小額費用。" },
+                    { text: "先輸入信用卡號但不按確認，看頁面會不會跳出錯誤。", correct: false, feedback: "不！有些惡意網站只要你輸入就會側錄你的按鍵。絕對不要在可疑網站輸入任何資料。" }
                 ]
             },
             {
-                title: "突如其來的「違規」通報",
-                image: "🚨",
-                text: "你收到一封郵件，標題是：『您的社交帳號涉及發布違規內容，將於 1 小時後永久停權。請點此申訴以保留帳號。』你擔心苦心經營的遊戲進度消失。",
+                title: "警察來電警告",
+                image: "📞",
+                text: "你接到電話：『我是某某分局警官，你的金融帳戶涉及刑案，請將所有壓歲錢匯入安全監管帳戶，否則會抓你去關。』",
                 options: [
-                    { text: "太可怕了！趕快點申訴連結，按照上面的指示驗證帳號。", correct: false, feedback: "這就是「情緒詐騙」！他們利用恐懼讓你失去理智，引導你交出帳號權限。" },
-                    { text: "先冷靜下來，手動開啟 App 進入設定查看帳號狀態。", correct: true, feedback: "專業！要查看帳號狀態，永遠從官方 App 或官網進入，不要透過郵件連結。" },
-                    { text: "截圖傳給老師或爸媽，詢問該怎麼辦。", correct: true, feedback: "這是最棒的應對！大人能幫你冷靜分析，並避免你因為慌張而做出錯誤決策。" }
+                    { text: "警察很有威嚴，聽起來很恐怖，趕快照著他的話去做。", correct: false, feedback: "警察絕對不會在電話中要求民眾匯款或監管帳戶！這就是「假檢警」詐騙。" },
+                    { text: "立刻掛斷，並撥打 165 反詐騙專線報案確認。", correct: true, feedback: "非常正確！165 是你最強的後盾。只要電話裡提到「匯款、監管、警察、開庭」，都是詐騙。" },
+                    { text: "反問他警察編號，並跟他聊起天來。", correct: false, feedback: "不要跟詐騙者糾纏。他們有專業話術能把你繞暈。直接掛斷是最好的策略。" }
                 ]
             }
         ];
@@ -179,15 +216,9 @@
         let currentLevel = 0;
         let hp = 100;
 
-        const startScreen = document.getElementById('start-screen');
-        const gameScreen = document.getElementById('game-screen');
-        const resultScreen = document.getElementById('result-screen');
-        const feedbackOverlay = document.getElementById('feedback-overlay');
-        const hpBar = document.getElementById('hp-bar');
-
         function startGame() {
-            startScreen.classList.add('hidden');
-            gameScreen.classList.remove('hidden');
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('game-screen').classList.remove('hidden');
             loadScenario();
         }
 
@@ -198,54 +229,53 @@
             document.getElementById('scenario-title').innerText = scenario.title;
             document.getElementById('scenario-text').innerText = scenario.text;
 
-            const optionsContainer = document.getElementById('options-container');
-            optionsContainer.innerHTML = '';
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
 
-            scenario.options.forEach((opt, index) => {
+            scenario.options.forEach((opt, i) => {
                 const btn = document.createElement('button');
-                btn.className = "w-full text-left p-4 rounded-xl border-2 border-slate-200 bg-white btn-option flex items-start space-x-3";
+                btn.className = "w-full text-left p-4 rounded-xl bg-white btn-option flex items-center space-x-4 shadow-sm group";
                 btn.innerHTML = `
-                    <span class="flex-shrink-0 w-6 h-6 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center font-bold text-xs">${index + 1}</span>
-                    <span class="text-slate-700 font-medium">${opt.text}</span>
+                    <span class="flex-shrink-0 w-8 h-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center font-bold group-hover:bg-indigo-600 group-hover:text-white transition-colors">${i + 1}</span>
+                    <span class="text-slate-700 font-bold text-base md:text-lg">${opt.text}</span>
                 `;
                 btn.onclick = () => checkAnswer(opt);
-                optionsContainer.appendChild(btn);
+                container.appendChild(btn);
             });
         }
 
-        function checkAnswer(option) {
+        function checkAnswer(opt) {
             const feedbackTitle = document.getElementById('feedback-title');
             const feedbackText = document.getElementById('feedback-text');
             const feedbackIcon = document.getElementById('feedback-icon');
 
-            if (option.correct) {
+            if (opt.correct) {
                 feedbackTitle.innerText = "識破成功！";
-                feedbackTitle.className = "text-2xl font-bold mb-2 text-green-600";
+                feedbackTitle.className = "text-2xl md:text-3xl font-bold mb-2 text-green-600";
                 feedbackIcon.innerText = "🛡️";
-                feedbackText.innerText = option.feedback;
             } else {
                 feedbackTitle.innerText = "掉入陷阱了...";
-                feedbackTitle.className = "text-2xl font-bold mb-2 text-red-600";
+                feedbackTitle.className = "text-2xl md:text-3xl font-bold mb-2 text-red-600";
                 feedbackIcon.innerText = "⚠️";
-                feedbackText.innerText = option.feedback;
                 
                 hp -= 25;
                 if (hp < 0) hp = 0;
-                hpBar.style.width = hp + '%';
+                document.getElementById('hp-bar').style.width = hp + '%';
+                document.getElementById('hp-text').innerText = hp + '%';
                 
-                // Update color based on HP
-                if (hp < 50) hpBar.classList.replace('from-green-400', 'from-orange-400');
-                if (hp < 30) hpBar.classList.replace('from-orange-400', 'from-red-500');
+                if (hp < 50) document.getElementById('hp-bar').classList.replace('from-green-400', 'from-orange-400');
+                if (hp < 30) document.getElementById('hp-bar').classList.replace('from-orange-400', 'from-red-500');
 
                 document.getElementById('game-container').classList.add('shake');
                 setTimeout(() => document.getElementById('game-container').classList.remove('shake'), 400);
             }
 
-            feedbackOverlay.classList.remove('hidden');
+            feedbackText.innerText = opt.feedback;
+            document.getElementById('feedback-overlay').classList.remove('hidden');
         }
 
         function closeFeedback() {
-            feedbackOverlay.classList.add('hidden');
+            document.getElementById('feedback-overlay').classList.add('hidden');
             
             if (hp <= 0) {
                 showResult(false);
@@ -258,8 +288,8 @@
         }
 
         function showResult(win) {
-            gameScreen.classList.add('hidden');
-            resultScreen.classList.remove('hidden');
+            document.getElementById('game-screen').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('hidden');
 
             const title = document.getElementById('result-title');
             const text = document.getElementById('result-text');
@@ -267,22 +297,23 @@
 
             if (win) {
                 icon.innerText = "🏅";
-                title.innerText = "等級：數位資安領袖";
-                text.innerText = `你在險惡的數位森林中生存了下來（剩餘防禦力：${hp}%）！你擁有冷靜判斷與查證的能力，這將保護你與你的朋友不受侵害。`;
+                title.innerText = "防詐大師！";
+                text.innerText = `恭喜你！在數位大冒險中成功生存。你的防禦力剩餘 ${hp}%。你的警覺心是詐騙集團最害怕的東西！`;
             } else {
-                icon.innerText = "📱";
-                title.innerText = "慘遭停權與盜刷...";
-                text.innerText = "你的數位防禦力歸零。雖然這只是遊戲，但在現實中，一個錯誤的點擊可能讓你失去心愛的帳號或金錢。加油，再練習一次！";
+                icon.innerText = "🤒";
+                title.innerText = "慘遭停權與盜刷";
+                text.innerText = "你的數位防禦力已耗盡。在現實中，這意味著你的個資或財產已受損。別灰心，重新學習一次，下回一定能成功！";
             }
         }
 
         function resetGame() {
             currentLevel = 0;
             hp = 100;
-            hpBar.style.width = '100%';
-            hpBar.className = "h-full bg-gradient-to-r from-green-400 to-indigo-500 transition-all duration-500";
-            resultScreen.classList.add('hidden');
-            startScreen.classList.remove('hidden');
+            document.getElementById('hp-bar').style.width = '100%';
+            document.getElementById('hp-text').innerText = '100%';
+            document.getElementById('hp-bar').className = "h-full bg-gradient-to-r from-green-400 to-emerald-500 transition-all duration-700";
+            document.getElementById('result-screen').classList.add('hidden');
+            document.getElementById('start-screen').classList.remove('hidden');
         }
     </script>
 </body>
