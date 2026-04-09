@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>防詐小尖兵：數位大冒險 - 單頁精簡版</title>
+    <title>防詐小尖兵：數位大冒險 - 大字體精簡版</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap');
         
         body {
             font-family: 'Noto+Sans+TC', sans-serif;
@@ -16,14 +16,14 @@
             align-items: center;
             justify-content: center;
             margin: 0;
-            overflow: hidden; /* 防止全頁捲動 */
+            overflow: hidden;
         }
 
         .game-wrapper {
             width: 100%;
             height: 100%;
             max-width: 1400px;
-            padding: 1rem;
+            padding: 1.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -31,24 +31,25 @@
 
         .glass {
             background: rgba(255, 255, 255, 0.98);
-            border-radius: 1.5rem;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            border-radius: 2rem;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
             width: 100%;
-            max-height: 95vh; /* 確保不超出可視區域 */
+            max-height: 96vh;
             display: flex;
             flex-direction: column;
-            overflow-y: auto; /* 若內容過多僅在容器內捲動 */
+            overflow-y: auto;
         }
 
         .btn-option {
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 2px solid #e2e8f0;
+            border: 3px solid #f1f5f9;
         }
 
         .btn-option:hover {
-            transform: scale(1.02);
+            transform: scale(1.015);
             background-color: #f8fafc;
-            border-color: #4f46e5;
+            border-color: #6366f1;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
 
         .shake {
@@ -57,13 +58,13 @@
 
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
+            25% { transform: translateX(-12px); }
+            75% { transform: translateX(12px); }
         }
 
         /* 自定義捲動條 */
         .glass::-webkit-scrollbar {
-            width: 6px;
+            width: 8px;
         }
         .glass::-webkit-scrollbar-thumb {
             background: #cbd5e1;
@@ -74,17 +75,19 @@
 <body>
 
     <div class="game-wrapper">
-        <div id="game-container" class="glass p-6 md:p-8 text-slate-800">
+        <div id="game-container" class="glass p-8 md:p-12 text-slate-800">
             
             <!-- Start Screen -->
-            <div id="start-screen" class="text-center py-4">
-                <div class="text-8xl mb-4">🛡️</div>
-                <h1 class="text-3xl md:text-5xl font-black text-slate-900 mb-4 tracking-tight">防詐小尖兵：數位大冒險</h1>
-                <div class="inline-block px-4 py-1 bg-indigo-600 text-white rounded-full text-lg font-bold mb-6">進階挑戰模式</div>
-                <p class="text-lg md:text-xl text-slate-600 mb-8 max-w-2xl mx-auto">
-                    詐騙者會偽裝成朋友、官方或網紅。你有辦法在不捲動頁面的情況下，用最快的反應識破他們嗎？
+            <div id="start-screen" class="text-center py-6">
+                <div class="text-9xl mb-6">🛡️</div>
+                <h1 class="text-4xl md:text-7xl font-black text-slate-900 mb-6 tracking-tighter">防詐小尖兵：數位大冒險</h1>
+                <div class="inline-block px-8 py-2 bg-indigo-600 text-white rounded-full text-2xl font-bold mb-10 shadow-xl">
+                    進階挑戰模式
+                </div>
+                <p class="text-2xl md:text-3xl text-slate-600 mb-12 max-w-3xl mx-auto leading-relaxed">
+                    詐騙者會偽裝成朋友、官方或網紅。<br>你能用最快的反應識破他們嗎？
                 </p>
-                <button onclick="startGame()" class="bg-indigo-600 text-white px-12 py-4 rounded-xl text-xl font-bold hover:bg-indigo-700 shadow-xl transition-all">
+                <button onclick="startGame()" class="bg-indigo-600 text-white px-20 py-6 rounded-2xl text-3xl font-black hover:bg-indigo-700 shadow-2xl transition-all hover:scale-105 active:scale-95">
                     開始挑戰
                 </button>
             </div>
@@ -92,67 +95,69 @@
             <!-- Game Screen -->
             <div id="game-screen" class="hidden h-full flex flex-col">
                 <!-- Header Stats -->
-                <div class="flex justify-between items-center mb-4 bg-slate-50 p-3 rounded-xl border border-slate-100">
-                    <div class="flex items-center space-x-4">
-                        <span class="text-xs font-bold text-slate-400 uppercase">關卡</span>
-                        <span id="level-indicator" class="text-2xl font-black text-indigo-600 leading-none">1 / 5</span>
+                <div class="flex justify-between items-center mb-8 bg-slate-50 p-5 rounded-2xl border-2 border-slate-100 shadow-sm">
+                    <div class="flex items-center space-x-6">
+                        <span class="text-sm font-black text-slate-400 uppercase tracking-widest">關卡</span>
+                        <span id="level-indicator" class="text-4xl font-black text-indigo-600 leading-none">1 / 5</span>
                     </div>
-                    <div class="flex items-center space-x-3 flex-grow max-w-xs md:max-w-md ml-6">
-                        <span class="text-xs font-bold text-slate-400 uppercase hidden sm:inline">防禦力</span>
-                        <div class="flex-grow h-3 bg-slate-200 rounded-full overflow-hidden shadow-inner">
+                    <div class="flex items-center space-x-6 flex-grow max-w-lg ml-10">
+                        <span class="text-sm font-black text-slate-400 uppercase tracking-widest hidden lg:inline">防禦力</span>
+                        <div class="flex-grow h-5 bg-slate-200 rounded-full overflow-hidden shadow-inner">
                             <div id="hp-bar" class="h-full bg-gradient-to-r from-green-400 to-emerald-500 transition-all duration-700" style="width: 100%"></div>
                         </div>
-                        <span id="hp-text" class="text-sm font-bold text-indigo-600 w-10 text-right">100%</span>
+                        <span id="hp-text" class="text-xl font-black text-indigo-600 w-16 text-right">100%</span>
                     </div>
                 </div>
 
                 <!-- Main Content Area -->
-                <div class="grid md:grid-cols-5 gap-6 items-start overflow-hidden">
+                <div class="grid lg:grid-cols-2 gap-10 items-start overflow-hidden">
                     <!-- Left: Scenario -->
-                    <div class="md:col-span-2 space-y-4">
-                        <div id="scenario-image" class="text-7xl text-center bg-indigo-50 py-6 rounded-2xl">🎮</div>
-                        <div class="bg-white p-5 rounded-2xl border-2 border-indigo-50 shadow-sm">
-                            <h2 id="scenario-title" class="text-xl font-bold mb-2 text-indigo-900">場景標題</h2>
-                            <p id="scenario-text" class="text-base md:text-lg leading-relaxed text-slate-700"></p>
+                    <div class="space-y-6">
+                        <div id="scenario-image" class="text-9xl text-center bg-indigo-50 py-10 rounded-3xl border-2 border-indigo-100">🎮</div>
+                        <div class="bg-white p-8 rounded-3xl border-4 border-indigo-50 shadow-md">
+                            <h2 id="scenario-title" class="text-3xl font-black mb-4 text-indigo-900 border-b-2 border-indigo-100 pb-2">場景標題</h2>
+                            <p id="scenario-text" class="text-xl md:text-2xl leading-relaxed text-slate-700 font-medium"></p>
                         </div>
                     </div>
 
                     <!-- Right: Options -->
-                    <div id="options-container" class="md:col-span-3 space-y-2">
+                    <div id="options-container" class="space-y-4">
                         <!-- Options injected here -->
                     </div>
                 </div>
             </div>
 
-            <!-- Feedback Overlay (Simplified Modal) -->
-            <div id="feedback-overlay" class="hidden fixed inset-0 bg-slate-900/90 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-                <div class="bg-white rounded-3xl p-6 md:p-10 max-w-xl w-full text-center shadow-2xl">
-                    <div id="feedback-icon" class="text-7xl mb-4">✅</div>
-                    <h3 id="feedback-title" class="text-2xl md:text-3xl font-bold mb-2">正確答案！</h3>
-                    <p id="feedback-text" class="text-lg text-slate-600 mb-8"></p>
-                    <button onclick="closeFeedback()" class="w-full bg-slate-900 text-white py-4 rounded-xl text-xl font-bold hover:bg-slate-800 transition">
+            <!-- Feedback Overlay -->
+            <div id="feedback-overlay" class="hidden fixed inset-0 bg-slate-900/95 backdrop-blur-md flex items-center justify-center p-6 z-50">
+                <div class="bg-white rounded-3xl p-10 md:p-16 max-w-3xl w-full text-center shadow-2xl border-t-8 border-indigo-500">
+                    <div id="feedback-icon" class="text-9xl mb-6">✅</div>
+                    <h3 id="feedback-title" class="text-4xl md:text-5xl font-black mb-6">正確答案！</h3>
+                    <p id="feedback-text" class="text-2xl md:text-3xl text-slate-600 mb-12 leading-relaxed"></p>
+                    <button onclick="closeFeedback()" class="w-full bg-slate-900 text-white py-6 rounded-2xl text-3xl font-black hover:bg-slate-800 transition-all active:scale-95 shadow-xl">
                         繼續
                     </button>
                 </div>
             </div>
 
             <!-- Result Screen -->
-            <div id="result-screen" class="hidden text-center py-2">
-                <div id="result-icon" class="text-8xl mb-4">🏅</div>
-                <h2 id="result-title" class="text-3xl md:text-5xl font-black text-slate-900 mb-2">結算成績</h2>
-                <p id="result-text" class="text-lg md:text-xl text-slate-600 mb-6"></p>
+            <div id="result-screen" class="hidden text-center py-6">
+                <div id="result-icon" class="text-9xl mb-8 animate-bounce">🏅</div>
+                <h2 id="result-title" class="text-5xl md:text-8xl font-black text-slate-900 mb-4">結算成績</h2>
+                <p id="result-text" class="text-2xl md:text-3xl text-slate-600 mb-10 font-medium"></p>
                 
-                <div class="bg-slate-50 p-5 rounded-2xl mb-6 text-left max-w-2xl mx-auto border border-slate-200">
-                    <h4 class="text-lg font-bold text-indigo-700 mb-3">🛡️ 防護重點回顧：</h4>
-                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2 text-sm text-slate-600">
-                        <li>• 驗證碼絕不外傳</li>
-                        <li>• 好友連結先確認本人</li>
-                        <li>• 領獎訊息多查證</li>
-                        <li>• 恐嚇訊息找大人</li>
+                <div class="bg-indigo-50 p-8 rounded-3xl mb-12 text-left max-w-3xl mx-auto border-2 border-indigo-100 shadow-inner">
+                    <h4 class="text-2xl font-black text-indigo-700 mb-6 flex items-center">
+                        <span class="mr-4">🛡️</span> 防護重點回顧：
+                    </h4>
+                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-4 text-xl font-bold text-slate-700">
+                        <li class="flex items-center"><span class="text-indigo-500 mr-3">●</span> 驗證碼絕不外傳</li>
+                        <li class="flex items-center"><span class="text-indigo-500 mr-3">●</span> 好友連結先確認本人</li>
+                        <li class="flex items-center"><span class="text-indigo-500 mr-3">●</span> 領獎訊息多查證</li>
+                        <li class="flex items-center"><span class="text-indigo-500 mr-3">●</span> 恐嚇訊息找大人</li>
                     </ul>
                 </div>
                 
-                <button onclick="resetGame()" class="bg-indigo-600 text-white px-12 py-4 rounded-xl text-xl font-bold hover:bg-indigo-700 shadow-xl transition-all">
+                <button onclick="resetGame()" class="bg-indigo-600 text-white px-20 py-6 rounded-2xl text-3xl font-black hover:bg-indigo-700 shadow-2xl transition-all">
                     重新挑戰
                 </button>
             </div>
@@ -166,48 +171,48 @@
                 image: "👾",
                 text: "玩家『管理員_測試員』私訊：『發現你的帳號有異常登入，請立即提供你手機剛收到的 6 位數代碼，否則我們將在 1 分鐘內永久鎖定你的帳號。』",
                 options: [
-                    { text: "這聽起來很嚴重，為了保護帳號趕快把代碼給他。", correct: false, feedback: "這是經典的盜帳號陷阱！那個代碼是修改密碼的權限。記住，官方永遠不會在私訊跟你要代碼。" },
-                    { text: "官方不會用這種方式要代碼，這絕對是假的，直接檢舉。", correct: true, feedback: "沒錯！面對「限時壓力」與「恐嚇」，冷靜識破才是高手。官方有後台系統，不需要問你的驗證碼。" },
-                    { text: "先給他前 3 碼測試看看他是不是真的管理員。", correct: false, feedback: "千萬不要給！詐騙者會用各種話術騙你給出剩下的部分，或者利用這部分資訊進一步攻擊。" }
+                    { text: "這聽起來很嚴重，為了保護帳號趕快把代碼給他。", correct: false, feedback: "這是經典的盜帳號陷阱！那個代碼是修改密碼的權限。官方「絕對」不會在私訊跟你要代碼。" },
+                    { text: "這是假的，官方不會這樣要代碼，直接檢舉。", correct: true, feedback: "沒錯！面對「限時壓力」與「恐嚇」，冷靜識破才是高手。官方有後台系統，不需要問你的驗證碼。" },
+                    { text: "先給他前 3 碼，看他是不是真的管理員。", correct: false, feedback: "千萬不要給！詐騙者會用各種話術騙你給出剩下的部分，或者利用這部分資訊進一步攻擊。" }
                 ]
             },
             {
                 title: "死黨的投票請求",
                 image: "👯",
-                text: "好朋友小明在 IG 傳來：『幫我參加才藝比賽投票！拜託點這個連結登入 LINE 幫我按個讚！』連結點開後網址是 line-voted.xyz。",
+                text: "好朋友小明在 IG 傳來：『幫我參加才藝比賽投票！拜託點這個連結登入 LINE 幫我按個讚！』連結網址是 line-voted.xyz。",
                 options: [
-                    { text: "好朋友都拜託了，用我的帳號密碼登入幫他按讚。", correct: false, feedback: "這是釣魚網站！你的帳號密碼會被偷走。注意網址不是官方的 line.me，而是奇怪的 xyz。" },
-                    { text: "打電話或當面問小明：『你是不是被盜帳號了？』", correct: true, feedback: "正確！遇到要輸入帳密的奇怪連結，先確認朋友本人的情況是最佳自保之道。" },
-                    { text: "幫他轉傳到班級群組，讓更多人一起幫忙投票。", correct: false, feedback: "這樣會害全班的帳號都被盜！如果不確定連結安全，絕對不能隨意轉傳。" }
+                    { text: "好朋友都拜託了，輸入帳密登入幫他按讚。", correct: false, feedback: "這是釣魚網站！你的帳密會被偷走。注意官方網址是 line.me，而不是奇怪的 xyz。" },
+                    { text: "打電話或當面問小明本人來確認狀況。", correct: true, feedback: "正確！遇到要輸入帳密的奇怪連結，直接與本人語音或見面確認是最佳自保之道。" },
+                    { text: "幫他轉傳到班級群組，讓更多人幫忙投票。", correct: false, feedback: "這樣會害全班的帳號都被盜！如果不確定連結安全，絕對不能隨意轉傳。" }
                 ]
             },
             {
                 title: "限時 1 折福利",
                 image: "📸",
-                text: "你在滑影音時，看到知名網紅的限時動態：『回饋粉絲，iPhone 15 只要 800 元！只剩 5 台，點擊下方連結搶購！』頁面上有超大的倒數計時。",
+                text: "你在滑影音時，看到知名網紅動態：『回饋粉絲，iPhone 15 只要 800 元！只剩 5 台，點擊下方連結搶購！』頁面上有倒數計時。",
                 options: [
-                    { text: "網紅應該不會騙人，趁還有名額趕快用紅包錢下單。", correct: false, feedback: "這是假網紅、假網頁！詐騙集團常盜用網紅照片做一頁式廣告，800 元絕對買不到真的 iPhone。" },
-                    { text: "檢查帳號是否有藍勾勾，並去官方商城對照價格。", correct: true, feedback: "聰明！保持理性，不要被「限時」與「低價」沖昏頭。查證來源比搶購更重要。" },
-                    { text: "直接在下方留言：『這太便宜了吧！』來引起賣家注意。", correct: false, feedback: "留言可能會讓你被詐騙者鎖定，並透過私訊進一步誘騙你。最好直接檢舉廣告。" }
+                    { text: "網紅應該不騙人，趁還有名額趕快下單。", correct: false, feedback: "這是假網紅、假網頁！詐騙集團常盜用照片做廣告，800 元絕對買不到真的 iPhone。" },
+                    { text: "檢查帳號是否有藍勾勾，並去官方商城對照價格。", correct: true, feedback: "聰明！保持理性，不要被「低價」沖昏頭。查證來源比搶購更重要。" },
+                    { text: "在下方留言：『這太便宜了吧！』來引起注意。", correct: false, feedback: "留言可能會讓你被詐騙者鎖定，並透過私訊進一步誘騙你。最好直接檢舉廣告。" }
                 ]
             },
             {
                 title: "包裹查收異常",
                 image: "📦",
-                text: "簡訊：『您的包裹配送地址不全，請點 bit.ly/tw-shipp 付費 15 元手續費以重新投遞。』你剛好最近有在網路上買東西。",
+                text: "簡訊：『您的包裹配送地址不全，請點 bit.ly/tw-shipp 付費 15 元手續費以重新投遞。』你剛好最近有買東西。",
                 options: [
-                    { text: "才 15 元而已，刷卡付掉比較省事，以免東西被退貨。", correct: false, feedback: "那是為了偷走你的信用卡完整資訊！15 元是餌，真正的目標是你的信用卡餘額。" },
-                    { text: "我不理它，如果是真的，物流公司會再打電話給我。", correct: true, feedback: "正確！公家機關或大快遞公司不會使用縮網址 (bit.ly) 要求民眾支付小額費用。" },
-                    { text: "先輸入信用卡號但不按確認，看頁面會不會跳出錯誤。", correct: false, feedback: "不！有些惡意網站只要你輸入就會側錄你的按鍵。絕對不要在可疑網站輸入任何資料。" }
+                    { text: "才 15 元而已，刷卡付掉比較省事。", correct: false, feedback: "那是為了偷走你的信用卡資訊！15 元是餌，真正的目標是刷空你的卡片。" },
+                    { text: "我不理它，如果是真的，物流會打電話給我。", correct: true, feedback: "正確！公家機關或大快遞公司不會使用縮網址 (bit.ly) 要求民眾支付小額費用。" },
+                    { text: "先輸入信用卡號但不按確認。", correct: false, feedback: "不！有些惡意網站只要你輸入就會側錄你的按鍵。絕對不要在可疑網站輸入任何資料。" }
                 ]
             },
             {
                 title: "警察來電警告",
                 image: "📞",
-                text: "你接到電話：『我是某某分局警官，你的金融帳戶涉及刑案，請將所有壓歲錢匯入安全監管帳戶，否則會抓你去關。』",
+                text: "接到電話：『我是分局警官，你的帳戶涉及刑案，請將壓歲錢匯入監管帳戶，否則會抓你去關。』",
                 options: [
-                    { text: "警察很有威嚴，聽起來很恐怖，趕快照著他的話去做。", correct: false, feedback: "警察絕對不會在電話中要求民眾匯款或監管帳戶！這就是「假檢警」詐騙。" },
-                    { text: "立刻掛斷，並撥打 165 反詐騙專線報案確認。", correct: true, feedback: "非常正確！165 是你最強的後盾。只要電話裡提到「匯款、監管、警察、開庭」，都是詐騙。" },
+                    { text: "警察很有威嚴，聽起來很恐怖，趕快照做。", correct: false, feedback: "警察絕對不會在電話中要求匯款或監管帳戶！這就是典型的「假檢警」詐騙。" },
+                    { text: "立刻掛斷，並撥打 165 反詐騙專線報案確認。", correct: true, feedback: "非常正確！165 是你最強的後盾。只要提到「匯款、監管、開庭」，都是詐騙。" },
                     { text: "反問他警察編號，並跟他聊起天來。", correct: false, feedback: "不要跟詐騙者糾纏。他們有專業話術能把你繞暈。直接掛斷是最好的策略。" }
                 ]
             }
@@ -234,10 +239,10 @@
 
             scenario.options.forEach((opt, i) => {
                 const btn = document.createElement('button');
-                btn.className = "w-full text-left p-4 rounded-xl bg-white btn-option flex items-center space-x-4 shadow-sm group";
+                btn.className = "w-full text-left p-6 md:p-8 rounded-2xl bg-white btn-option flex items-center space-x-6 shadow-sm group";
                 btn.innerHTML = `
-                    <span class="flex-shrink-0 w-8 h-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center font-bold group-hover:bg-indigo-600 group-hover:text-white transition-colors">${i + 1}</span>
-                    <span class="text-slate-700 font-bold text-base md:text-lg">${opt.text}</span>
+                    <span class="flex-shrink-0 w-12 h-12 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center font-black text-xl group-hover:bg-indigo-600 group-hover:text-white transition-colors">${i + 1}</span>
+                    <span class="text-slate-800 font-bold text-xl md:text-2xl">${opt.text}</span>
                 `;
                 btn.onclick = () => checkAnswer(opt);
                 container.appendChild(btn);
@@ -251,11 +256,11 @@
 
             if (opt.correct) {
                 feedbackTitle.innerText = "識破成功！";
-                feedbackTitle.className = "text-2xl md:text-3xl font-bold mb-2 text-green-600";
+                feedbackTitle.className = "text-4xl md:text-6xl font-black mb-6 text-green-600";
                 feedbackIcon.innerText = "🛡️";
             } else {
                 feedbackTitle.innerText = "掉入陷阱了...";
-                feedbackTitle.className = "text-2xl md:text-3xl font-bold mb-2 text-red-600";
+                feedbackTitle.className = "text-4xl md:text-6xl font-black mb-6 text-red-600";
                 feedbackIcon.innerText = "⚠️";
                 
                 hp -= 25;
@@ -301,8 +306,8 @@
                 text.innerText = `恭喜你！在數位大冒險中成功生存。你的防禦力剩餘 ${hp}%。你的警覺心是詐騙集團最害怕的東西！`;
             } else {
                 icon.innerText = "🤒";
-                title.innerText = "慘遭停權與盜刷";
-                text.innerText = "你的數位防禦力已耗盡。在現實中，這意味著你的個資或財產已受損。別灰心，重新學習一次，下回一定能成功！";
+                title.innerText = "再接再厲！";
+                text.innerText = "你的數位防禦力已耗盡。現實中一個錯誤的決定可能影響重大。重新學習一次，下回一定成功！";
             }
         }
 
